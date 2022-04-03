@@ -82,7 +82,7 @@ const Detail = () => {
             <strong>Species:</strong> {character.species.join(', ') || 'Human'}
           </p>
           <p>
-            <strong>Films:</strong> {character.films.join(', ')}
+            <strong>Movies:</strong> {character.films.join(', ')}
           </p>
           <p>
             <strong>Spaceships:</strong> {character.spaceships.join(', ') || 'None'}
