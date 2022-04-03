@@ -1,4 +1,10 @@
 .app {
   display: flex;
   justify-content: center;
+  margin: auto 10%;
+}
+
+a, a:active, a:focus, a:hover {
+  text-decoration: none;
+  color: inherit;
 }

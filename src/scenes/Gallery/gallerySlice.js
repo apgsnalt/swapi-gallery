@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchMockList, fetchList } from '../../helpers/swapiCall';
+import { fetchMockList, fetchList } from '../../helpers/utils';
 
 const initialState = {
   lists: {
@@ -7,6 +7,12 @@ const initialState = {
     species: null,
     films: null,
     starships: null,
+  },
+  filters: {
+    film: '',
+    species: '',
+    from: '',
+    to: '',
   },
 };
 
@@ -22,6 +28,9 @@ export const galleryReducer = createSlice({
   name: 'gallery',
   initialState,
   reducers: {
+    setFilters: (state, action) => {
+      state.filters = {...state.filters, ...action.payload};
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSwapiList.fulfilled, (state, action) => {
@@ -32,5 +41,8 @@ export const galleryReducer = createSlice({
 
 // Selectors
 export const selectLists = (state) => state.gallery.lists;
+export const selectFilters = (state) => state.gallery.filters;
+
+export const { setFilters } = galleryReducer.actions
 
 export default galleryReducer.reducer;

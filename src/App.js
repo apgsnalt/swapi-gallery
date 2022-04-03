@@ -9,8 +9,6 @@ import styles from './App.module.css';
 import Gallery from './scenes/Gallery';
 import Detail from './scenes/Detail';
 
-export const cache = {};
-
 
 const App = () => (
   <div className={styles.app}>

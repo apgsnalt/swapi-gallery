@@ -1,5 +1,5 @@
 /**
- * Module where functions to fetch data from swapi entrypoints are collected.
+ * Module where utility functions are collected.
  */
 
 import { c_species, c_chars, c_films, starships } from "../mockConst";
@@ -44,3 +44,13 @@ export const fetchMockList = () => {
     }), 1500)
   );
 };
+
+/**
+ * Function to extract a number from a string (typically a URL)
+ */
+/**
+ * 
+ * @param {String} s  The string to parse 
+ * @returns number
+ */
+export const extractNumber = (s) => Number(s.replace(/[^\d]+/g, ''));

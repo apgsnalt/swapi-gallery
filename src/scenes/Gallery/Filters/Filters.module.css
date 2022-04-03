@@ -1,0 +1,42 @@
+.filters {
+  flex: 1;
+  width: 200px;
+  background-color: whitesmoke;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 1px #aad;
+  height: max-content;
+
+  position: sticky;
+  top: 20px;
+}
+
+#dateError {
+  color: darkred;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 5px
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputContainer {
+  margin-top: 15px;
+}
+
+.inputFields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputFields > label {
+  width: 48%;
+}
+
+input, select {
+  padding: 5px;
+}

@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import styles from './Detail.module.css';
 import Spinner from '../../components/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
-import { COUNTS } from '../../helpers/const';
+import classnames from 'classnames';
+
 import {
   fetchSwapiList,
   selectLists,
 } from '../Gallery/gallerySlice';
+import Title from '../../components/Title';
 
-
-const Detail = (s) => {
+const Detail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const characterId = Number(location.pathname.replace(/[^\d]+/g, ''))
+  const characterId = location.pathname.replace(/^\/character\//, '');
   const lists = useSelector(selectLists);
   const { people, films, species, starships } = lists;
 
@@ -27,42 +28,65 @@ const Detail = (s) => {
   }, []);
 
   if (!Object.values(lists).every(Boolean)) {
-    return <Spinner />;
+    return (
+      <div>
+        <Title /> 
+        <Spinner />
+      </div>
+    );
   }
 
-  const getCharacter = () => {    
-    const char = people.find((el) => el.url.includes(`/${characterId}/`));
-    const charSpecies = char?.species.map((id) => species.find((el) => el.url === id)?.name);
-    const charFilms = char?.films.map((id) => films.find((el) => el.url === id)?.title);
-    const charStarships = char?.starships.map((id) => starships.find((el) => el.url === id)?.name);
+  const character = (() => {    
+    const char = people.find((el) => el.url.includes(`people/${characterId}/`));
+    if (!char) {
+      return null;
+    }
+
+    const charSpecies = char.species.map((id) => species.find((el) => el.url === id).name);
+    const charFilms = char.films.map((id) => films.find((el) => el.url === id).title);
+    const charStarships = char.starships.map((id) => starships.find((el) => el.url === id).name);
 
     return {
-      name: char?.name,
+      name: char.name,
       species: charSpecies,
       films: charFilms,
       spaceships: charStarships,
     }
+  })();
+
+  if (!characterId || !character) {
+    return (
+      <div>
+        <Title /> 
+        <div className={classnames([styles.detail, styles.detailNotFound])}>
+          Character not found
+        </div>
+      </div>
+    );
   }
 
-  const character = getCharacter();
-
   return (
-    <div className={styles.detail}>
-      <Link to={-1}>
-        Back
-      </Link>
-      <div
-        key={`character-card-${character?.url?.replace(/[^\d]+/g, '')}`}
-        className={styles.galleryItem}
-      >
-        Name: {character.name}
-        <br />
-        Species: {character.species?.join(', ') || 'Human'}
-        <br />
-        films: {character.films?.join(', ')}
-        <br />
-        SpaceShips: {character.spaceships?.join(', ') || 'None'}
-      </div>     
+    <div>
+      <Title />
+      <div className={styles.detail}>
+        <div className={styles.galleryItem}>
+          <p>
+            <strong>Name:</strong> {character.name}
+          </p>
+          <p>
+            <strong>Species:</strong> {character.species.join(', ') || 'Human'}
+          </p>
+          <p>
+            <strong>Films:</strong> {character.films.join(', ')}
+          </p>
+          <p>
+            <strong>Spaceships:</strong> {character.spaceships.join(', ') || 'None'}
+          </p>
+        </div>
+        <Link to={-1}>
+          &#9665; Back
+        </Link>
+      </div>
     </div>
   );
 }
