@@ -1,6 +1,6 @@
 
 /**
- * Some constants used in various places of the application
+ * Module collecting some constants used in various places of the application.
  */
 
 // Total amount of elements for each list entity

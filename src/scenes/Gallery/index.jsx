@@ -1,5 +1,8 @@
+/**
+ * Scene including the list of characters and the filters
+ */
+
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { extractNumber } from '../../helpers/utils';
@@ -11,7 +14,9 @@ import {
 } from './gallerySlice';
 import Spinner from '../../components/Spinner';
 import Filters from './Filters';
+import List from './List';
 import Title from '../../components/Title';
+
 
 const Gallery = () => {
   const dispatch = useDispatch();
@@ -19,6 +24,7 @@ const Gallery = () => {
   const filters = useSelector(selectFilters);
   const { people, films, species } = useSelector(selectLists);
 
+  /* Hook to fetch all missing lists from Swapi */
   useEffect(() => {
     Object.entries(lists).forEach(([key, value]) => {
       // We can safely ignore fetching the starships list for now
@@ -36,8 +42,8 @@ const Gallery = () => {
    * Function that, given a character, checks whether it should be displayed,
    * given the filters parameters.
    * 
-   * @param {Object} character 
-   * @returns 
+   * @param {Object} character  The character to test, taken from the people list
+   * @returns {boolean}
    */
   const filterPeople = (character) => {
     const { film, species, from, to } = filters;
@@ -75,29 +81,6 @@ const Gallery = () => {
     return true;
   }
 
-  const renderList = () => {
-    const renderedCharacters = people.filter(filterPeople);
-
-    if (!renderedCharacters.length) {
-      return (
-        <div className={styles.emptyGallery}>
-          No matches for the selected criteria
-        </div>
-      );
-    }
-
-    return renderedCharacters.map((el) => (
-      <Link 
-        to={`/character/${extractNumber(el.url)}`}
-        key={`character-${extractNumber(el.url)}`}
-      >
-        <div className={styles.galleryItem}>
-          {el.name}
-        </div>
-      </Link>
-    ));
-  }
-  
   return (
     <div>
       <Title />
@@ -106,9 +89,7 @@ const Gallery = () => {
         : (
           <div className={styles.galleryContainer}>
             <Filters />
-            <div className={styles.gallery}>
-              {renderList()}
-            </div>
+            <List characters={people.filter(filterPeople)} />
           </div>
         )
       }

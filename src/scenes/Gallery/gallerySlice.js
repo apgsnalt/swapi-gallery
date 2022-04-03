@@ -1,3 +1,7 @@
+/**
+ * Gallery slice, containing all the lists needed for the presentation and the current filters.
+ */
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchList } from '../../helpers/utils';
 

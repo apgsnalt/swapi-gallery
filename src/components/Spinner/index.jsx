@@ -1,4 +1,9 @@
+/**
+ * Spinner component for loading sessions
+ */
+
 import styles from './Spinner.module.css';
+
 
 const Spinner = () => (
   <div className={styles.spinnerContainer}>

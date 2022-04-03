@@ -7,17 +7,16 @@ import { SWAPI_LIMIT, COUNTS } from "./const";
 /**
  * Fetch a complete list from the Star Wars API.
  *
- * Swapi has a limit of 10 returned elements per call, and a total of 82 characters (as of today).
- * Since we need all characters to have the application work the way it was intended,
- * the idea is to make parallel calls and merge the results. This can be performed through Promise.all,
- * although this technique should be used sparingly as servers may be susceptible to high rates of
- * traffic and potentially block users. Naturally, this is ok for a PoC like this project,
- * but for production applications, a standard pagination/infinite scroll solution with filtering params
- * should be preferred.
+ * Swapi has a limit of 10 returned elements per call. Since we need all characters to have
+ * the application work the way it was intended, the idea is to make parallel calls and merge the results.
+ * This can be performed through Promise.all, although this technique should be used sparingly as servers
+ * may be susceptible to high rates of traffic and potentially block users. Naturally, this is ok
+ * for a PoC like this project, but for production applications, a standard pagination/infinite scroll solution
+ * with filtering parameters should be preferred.
  *
- * The total amount of elements is passed as a constant since this value hardly changes over time. 
+ * The total amount of elements is retrieved as a constant since this value hardly changes over time. 
  * For dynamic lists, it is advisable to "prefetch", e.g. get the first page and use the "count" value returned
- * to initialize the urls array (possibly skipping the first page fetch). I didn't implement this solution
+ * to initialize the 'urls' array (possibly skipping the first page fetch). I didn't implement this solution
  * because it slows down the fetching process and adds code complexity.
  *
  * @param {String} entity       The type of entity to fetch (people, species, etc.)
@@ -33,11 +32,9 @@ export const fetchList = ({ entity }) => {
 };
 
 /**
- * Function to extract a number from a string (typically a URL)
- */
-/**
+ * Function to extract a number from a string (typically a URL).
  * 
- * @param {String} s  The string to parse 
- * @returns number
+ * @param {String} s    The string to parse 
+ * @returns {Number}    The number that has been parsed (0 if not found)
  */
 export const extractNumber = (s) => Number(s.replace(/[^\d]+/g, ''));

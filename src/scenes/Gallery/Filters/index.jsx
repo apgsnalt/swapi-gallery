@@ -1,4 +1,9 @@
-import React, { useEffect } from 'react';
+/**
+ * Filters component displayed alongside the gallery.
+ * All the fields' state is saved in redux store to avoid losing it on page unmount.
+ */
+
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './Filters.module.css';
@@ -9,6 +14,7 @@ import {
 } from '../gallerySlice';
 import SelectField from '../../../components/Fields/SelectField';
 import YearField from '../../../components/Fields/YearField';
+
 
 const Gallery = () => {
   const dispatch = useDispatch();

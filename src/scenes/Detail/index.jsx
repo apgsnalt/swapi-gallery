@@ -1,15 +1,20 @@
+/**
+ * Component displaying some details about the chosen character.
+ */
+
 import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import styles from './Detail.module.css';
-import Spinner from '../../components/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
+import styles from './Detail.module.css';
 import {
   fetchSwapiList,
   selectLists,
 } from '../Gallery/gallerySlice';
 import Title from '../../components/Title';
+import Spinner from '../../components/Spinner';
+
 
 const Detail = () => {
   const dispatch = useDispatch();
