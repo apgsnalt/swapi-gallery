@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchMockList, fetchList } from '../../helpers/utils';
+import { fetchList } from '../../helpers/utils';
 
 const initialState = {
   lists: {
@@ -19,8 +19,7 @@ const initialState = {
 // Async thunk to fetch a swapi list
 export const fetchSwapiList = createAsyncThunk(
   'gallery/fetchList',
-  async (...args) => await fetchMockList(...args),
-  // async (...args) => await fetchList(...args),
+  async (...args) => await fetchList(...args),
 );
 
 // Reducer

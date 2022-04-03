@@ -2,7 +2,6 @@
  * Module where utility functions are collected.
  */
 
-import { c_species, c_chars, c_films, starships } from "../mockConst";
 import { SWAPI_LIMIT, COUNTS } from "./const";
 
 /**
@@ -31,18 +30,6 @@ export const fetchList = ({ entity }) => {
   return Promise.all(urls.map(url => fetch(url).then(r => r.json())))
     .then(r => r.map(page => page.results).filter(Boolean))
     .then(r => new Promise((resolve) => resolve({ [entity]: r.flat() })));
-};
-
-// Mock function (avoid needless api calls during development)
-export const fetchMockList = () => {
-  return new Promise((resolve) =>
-    setTimeout(() => resolve({
-      people: c_chars,
-      species: c_species,
-      films: c_films,
-      starships: starships,
-    }), 1500)
-  );
 };
 
 /**
